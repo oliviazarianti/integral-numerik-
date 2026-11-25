@@ -1,0 +1,43 @@
+import numpy as np
+
+#mendefinisikan yang di integralkan
+def f(x):
+    return np.exp(-x**2)
+
+
+#mendefinisikan fungsi trapesium
+def trapesium(a, b, n):
+    #menentukan nuilai H
+    h = (b - a)/n
+    #menentukan nilai titik partisi
+    x = np.linspace(a, b, n + 1)
+    #menentukan nilai fungsi untuk setiap titik partisi
+    y = f (x)
+    #rumus aturan trapesium
+    integral = (h / 2) * (y[0] + 2 * np.sum(y[1:-1]) + y[-1])
+
+    return integral, h
+#menentukan batas integrasi
+a = 0.2
+b = 2.6
+
+#nilai acuan
+i_acuan = 0.688653
+
+#jumlah sub interval
+nilai_n = [6, 12, 18, 24]
+
+#menampilkan tabel hasil
+print(f"Hasil Integrasi Menggunakan Aturan Trapesium")
+print("_"*70)
+print(f"{'n':>5} {'h':>12} {'integral':>18} {'galat absolut':>18}")
+print("_"*70)
+
+#perulangan setiap nilai n
+for n in nilai_n:
+  hasil, h = trapesium(a, b, n)
+
+  #menghitung galat
+  galat = abs(i_acuan - hasil)
+
+  print(f"{n:>5} {h:>12.6f} {hasil:>18.6f} {galat:>18.6f}")
